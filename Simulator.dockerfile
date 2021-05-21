@@ -1,9 +1,9 @@
 ARG BUILD_CONTAINER
 FROM ${BUILD_CONTAINER} AS build
 
+COPY * /src/
 RUN mkdir build
-RUN ls -al
-RUN cmake -S . -B build
+RUN cmake -S /src -B build
 RUN cmake --build build
 RUN chmod +x build/simulator.exe
 

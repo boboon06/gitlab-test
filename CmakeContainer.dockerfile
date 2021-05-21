@@ -7,4 +7,5 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Default the timezone to UTC, but users can override the environment variable if they want it in their timezone.
 ENV TZ=UTC
 
-RUN apt-get -y update && apt-get install -y gcc libboost-all-dev cmake
+RUN apt-get -y update && apt-get install -y gcc libboost-all-dev
+RUN snap install cmake --classic

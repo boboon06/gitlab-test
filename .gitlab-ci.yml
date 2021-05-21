@@ -11,7 +11,7 @@ before_script:
 cmake-container-build:
   stage: build
   script:
-    - docker build --pull -f CmakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest .
+    - docker build --pull -f CmakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest --build-arg CMAKE_VERSION=3.20.2 .
     - docker push $CI_REGISTRY_IMAGE/cmake:latest
   when: manual
   

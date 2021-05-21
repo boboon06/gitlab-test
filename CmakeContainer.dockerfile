@@ -7,5 +7,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Default the timezone to UTC, but users can override the environment variable if they want it in their timezone.
 ENV TZ=UTC
 
-RUN apt-get -y update && apt-get install -y gcc libboost-all-dev
-RUN snap install cmake --classic
+ARG CMAKE_VERSION
+RUN apt-get -y update && apt-get install -y gcc libboost-all-dev build-essential libssl-dev
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz -O download.tar.gz
+RUN tar -zxvf download.tar.gz
+RUN cd download; ./bootstrap; make install;
+RUN rm -rf download/ download.tar.gz

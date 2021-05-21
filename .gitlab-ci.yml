@@ -15,3 +15,9 @@ cmake-container-build:
     - docker build --pull -f CmakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest docker_context
     - docker push $CI_REGISTRY_IMAGE/cmake:latest
   when: manual
+  
+simulator-build:
+  stage: build
+  script:
+    - docker build --pull -f Simulator.dockerfile -t $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG .
+    - docker push $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG

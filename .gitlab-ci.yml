@@ -13,4 +13,5 @@ cmake-container-build:
   script:
     - mkdir docker_context
     - docker build --pull -f CmakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest docker_context
+    - docker push $CI_REGISTRY_IMAGE/cmake:latest
   when: manual

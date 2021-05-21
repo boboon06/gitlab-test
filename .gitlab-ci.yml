@@ -8,7 +8,10 @@ stages:
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-build:
+cmake-container-build:
   stage: build
   script:
-    - "echo \"//TODO: Add steps\""
+    - mkdir docker_context
+    - docker build --pull -f CmakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest docker_context
+    - docker push $CI_REGISTRY_IMAGE/cmake:latest
+  when: manual

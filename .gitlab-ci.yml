@@ -11,5 +11,6 @@ before_script:
 cmake-container-build:
   stage: build
   script:
-    - docker build --pull -f Cmake.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest
+    - mkdir docker_context
+    - docker build --pull -f Cmake.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest docker_context
   when: manual

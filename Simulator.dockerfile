@@ -1,3 +1,4 @@
+ARG BUILD_CONTAINER
 FROM ${BUILD_CONTAINER} AS build
 
 RUN mkdir build

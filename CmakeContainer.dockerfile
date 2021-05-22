@@ -16,4 +16,4 @@ ARG CMAKE_VERSION
 RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz -O download.tar.gz; tar -zxf download.tar.gz; rm download.tar.gz;
 
 # Navigate to the extracted cmake source code, and install it
-RUN cd cmake-${CMAKE_VERSION}; ./bootstrap; make install; rm -rf cmake-${CMAKE_VERSION}/
+RUN cd cmake-${CMAKE_VERSION}; ./bootstrap; make install; cd ..; rm -rf cmake-${CMAKE_VERSION}/

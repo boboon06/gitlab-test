@@ -12,8 +12,8 @@ do
 		hasTestFailed=true
 	fi
 	
-	if [ ! -f "$1.in.result" ]; then
-		echo "No result file for $testName.in found. Was looking for \"$1.in.result\""
+	if [ ! -f "$i.in.result" ]; then
+		echo "No result file for $testName.in found. Was looking for \"$i.in.result\""
 		hasTestFailed=true
 	fi
 done

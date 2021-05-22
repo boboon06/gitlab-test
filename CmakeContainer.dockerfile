@@ -7,7 +7,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Default the timezone to UTC, but users can override the environment variable if they want it in their timezone.
 ENV TZ=UTC
 
-ARG CMAKE_VERSION
 RUN apt-get -y update && apt-get install -y gcc libboost-all-dev build-essential libssl-dev wget
-RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz -O download.tar.gz; tar -zxvf download.tar.gz;
-RUN cd cmake-${CMAKE_VERSION}; ./bootstrap; make install; rm -rf cmake-${CMAKE_VERSION}/ download.tar.gz
+
+# APT only has cmake 3.16.3 and we need >= 3.17.0 so we have to download and compile cmake from source.
+ARG CMAKE_VERSION
+
+# Download cmake source code from GitHub as a tar.gz and extract it
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz -O download.tar.gz; tar -zxf download.tar.gz; rm download.tar.gz;
+
+# Navigate to the extracted cmake source code, and install it
+RUN cd cmake-${CMAKE_VERSION}; ./bootstrap; make install; rm -rf cmake-${CMAKE_VERSION}/

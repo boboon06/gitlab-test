@@ -8,8 +8,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
 ARG CMAKE_VERSION
-RUN apt-get -y update && apt-get install -y gcc libboost-all-dev build-essential libssl-dev
-RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz -O download.tar.gz
-RUN tar -zxvf download.tar.gz
-RUN cd download; ./bootstrap; make install;
-RUN rm -rf download/ download.tar.gz
+RUN apt-get -y update && apt-get install -y gcc libboost-all-dev build-essential libssl-dev wget
+RUN wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz -O download.tar.gz; \
+	tar -zxvf download.tar.gz; \
+	cd download; ./bootstrap; make install; \
+	rm -rf download/ download.tar.gz

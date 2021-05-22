@@ -13,8 +13,14 @@ do
 	fi
 	
 	if [ ! -f "$i.result" ]; then
-		echo "No result file for $testName.in found. Was looking for \"$i.result\""
+		echo "\e[31mNo result file for $testName.in found. Was looking for \"$i.result\"\e[0m"
 		hasTestFailed=true
+	else
+		if cmp --silent -- "$i.result" "tests/$testName.gold"; then
+			echo "\e[32mThe test results match the expected results.\e[0m"
+		else
+			echo "\e[31mThe test results do not match the expected results.\e[0m"
+		fi
 	fi
 done
 

@@ -7,5 +7,5 @@ RUN cmake -S /src -B build
 RUN cmake --build build
 
 FROM ubuntu:20.04
-COPY --from=build build/simulator .
-ENTRYPOINT ["simulator"]
+COPY --from=build build/Simulator .
+ENTRYPOINT ["Simulator"]

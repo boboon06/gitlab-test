@@ -27,7 +27,7 @@ int main(int argc, char** argv)
         simulation->ProbeAllGates();
     }
         
-    simulation->Run();
+    simulation->Run(std::cout);
     if (json)
         simulation->UndoProbeAllGates();
     if (argc >= 3 && "json" == std::string(argv[2]))

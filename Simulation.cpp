@@ -172,13 +172,13 @@ boost::property_tree::ptree Simulation::GetJson()
 	return pt;
 }
 
-void Simulation::PrintProbes(std::ostream& os)
+void Simulation::PrintProbes(std::ostream& os, std::ostream& resultFile)
 {
 	for (const auto& probe : m_probes)
 	{
 		if (!m_circuit->GetGate(probe.gateName)->IsProbed())
 			continue;
 		os << probe.time << " " << probe.gateName << " " << probe.newValue << std::endl;
+		resultFile << probe.time << " " << probe.gateName << " " << probe.newValue << std::endl;
 	}
-		
 }

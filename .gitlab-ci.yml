@@ -26,7 +26,7 @@ simulator-build:
 # Because GitLab has no way to run jobs against files in a directory, we have to use a bash script that will do the foreach for us. This means this step is Linux only.
 simulator-test:
   stage: test
-  needs: simulator-build
+  needs: [ "simulator-build" ]
   script:
     - docker pull $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG # Make sure the runner has the most recent version from GitLab
     - >

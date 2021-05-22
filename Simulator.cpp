@@ -38,5 +38,7 @@ int main(int argc, char** argv)
         boost::property_tree::write_json(output, simResult);
         output << ");\n";
     }
-    simulation->PrintProbes(std::cout);
+	
+	std::ofstream resultFile(strcat(argv[1], ".result"), std::ios::out);
+    simulation->PrintProbes(std::cout, resultFile);
 }

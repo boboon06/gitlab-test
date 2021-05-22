@@ -4,13 +4,14 @@ services:
 
 stages:
   - build
+  - test
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 cmake-container-build:
   stage: build
-  timeout: 2h 0m # Because we hve to build CMake from source code, it can take almost an hour for this step to complete, so increase the timeout to handle any slow downs outside our control.
+  timeout: 2h 0m # Because we have to build CMake from source code, it can take almost an hour for this step to complete, so increase the timeout to handle any slow downs outside our control.
   script:
     - docker build --pull -f CMakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest --build-arg CMAKE_VERSION=3.20.2 .
     - docker push $CI_REGISTRY_IMAGE/cmake:latest
@@ -21,3 +22,16 @@ simulator-build:
   script:
     - docker build --pull -f Simulator.dockerfile -t $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG --build-arg BUILD_CONTAINER=$CI_REGISTRY_IMAGE/cmake:latest .
     - docker push $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG
+    
+# Because GitLab has no way to run jobs against files in a directory, we have to use a bash script that will do the foreach for us. This means this step is Linux only.
+simulator-test:
+  stage: test
+  needs: simulator-build
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG # Make sure the runner has the most recent version from GitLab
+    - >
+      for i in tests/*.in;
+      do
+       docker run --mount type=bind,src=tests,dst=/etc/tests  $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG /etc/tests/$i.in
+      done
+      ls tests -al

@@ -39,6 +39,6 @@ int main(int argc, char** argv)
         output << ");\n";
     }
 	
-	std::ofstream resultFile(argv[1] + ".result", std::ios::out);
+	std::ofstream resultFile(strcat(argv[1], ".result"), std::ios::out);
     simulation->PrintProbes(std::cout, resultFile);
 }

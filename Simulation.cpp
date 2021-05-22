@@ -41,7 +41,7 @@ void Simulation::AddTransition(std::string gateName, int outputValue, int output
 	m_inTransitions.emplace_back(Transition{ pGate, outputValue, outputTime });
 }
 
-std::unique_ptr<Simulation> Simulation::FromFile(std::ifstream& is)
+std::unique_ptr<Simulation> Simulation::FromFile(std::ifstream& is, std::ostream& os)
 {
 	auto simulation = std::make_unique<Simulation>();
 	auto* circut = simulation->GetCircut();
@@ -80,7 +80,7 @@ std::unique_ptr<Simulation> Simulation::FromFile(std::ifstream& is)
 		{
 			if (command.size() != 2)
 				throw std::runtime_error("Invalid number of arguments for probe type");
-			circut->AddProbe(command[1]);
+			circut->AddProbe(command[1], os);
 		}
 		else if (command[0] == "flip")
 		{

@@ -29,4 +29,4 @@ simulator-test:
   needs: [ "simulator-build" ]
   script:
     - docker pull $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG # Make sure the runner has the most recent version from GitLab
-    - /bin/bash RunAllTests.sh
+    - sh RunAllTests.sh

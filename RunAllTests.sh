@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 
 hasTestFailed=false
 for i in tests/*.in;

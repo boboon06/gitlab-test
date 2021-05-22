@@ -10,8 +10,14 @@ before_script:
 
 cmake-container-build:
   stage: build
+  timeout: 2h 0m # Because we hve to build CMake from source code, it can take almost an hour for this step to complete, so increase the timeout to handle any slow downs outside our control.
   script:
-    - mkdir docker_context
-    - docker build --pull -f CmakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest docker_context
+    - docker build --pull -f CMakeContainer.dockerfile -t $CI_REGISTRY_IMAGE/cmake:latest --build-arg CMAKE_VERSION=3.20.2 .
     - docker push $CI_REGISTRY_IMAGE/cmake:latest
   when: manual
+  
+simulator-build:
+  stage: build
+  script:
+    - docker build --pull -f Simulator.dockerfile -t $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG --build-arg BUILD_CONTAINER=$CI_REGISTRY_IMAGE/cmake:latest .
+    - docker push $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG

@@ -5,6 +5,7 @@ COPY * /src/
 RUN mkdir build
 RUN cmake -S /src -B build
 RUN cmake --build build
+RUN ls -al build
 RUN chmod +x build/simulator.exe
 
 FROM ubuntu:20.04

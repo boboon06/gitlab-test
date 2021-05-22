@@ -13,8 +13,6 @@ do
 	fi
 done
 
-ls tests -al
-
 if $hasTestFailed; then
 	exit 1
 	fi

@@ -6,8 +6,6 @@ RUN mkdir build
 RUN cmake -S /src -B build
 RUN cmake --build build
 
-FROM ubuntu:20.04
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y update && apt-get install -y libboost-regex-dev
+FROM ${BUILD_CONTAINER}
 COPY --from=build build/Simulator .
 ENTRYPOINT ["./Simulator"]

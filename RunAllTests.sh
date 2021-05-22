@@ -3,11 +3,14 @@
 hasTestFailed=false
 for i in tests/*.in;
 do
-	docker run --mount type=bind,src=tests,dst=/etc/tests $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG /etc/tests/$i.in
+	testName=(basename $i)
+	echo "Testing $testName.in..."
+	docker run --mount type=bind,src=tests,dst=/etc/tests $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG "/etc/tests/$testName.in"
 	testResult = $?
-	echo "Testing $i.in returned exit code $testResult"
-	if (testResult != 0)
+	echo "Testing $testName.in returned exit code $testResult"
+	if testResult != 0; then
 		hasTestFailed = true
+	fi
 done
 
 if (hasTestFailed)

@@ -3,7 +3,7 @@
 hasTestFailed=false
 for i in tests/*.in;
 do
-	testName=(basename $i)
+	testName=$(basename "$i" .in)
 	echo "Testing $testName.in..."
 	docker run --mount type=bind,src=tests,dst=/etc/tests $CI_REGISTRY_IMAGE/simulator:$CI_COMMIT_REF_SLUG "/etc/tests/$testName.in"
 	testResult = $?
@@ -13,5 +13,6 @@ do
 	fi
 done
 
-if (hasTestFailed)
+if hasTestFailed; then
 	exit 1
+	fi

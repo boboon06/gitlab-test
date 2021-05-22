@@ -8,4 +8,4 @@ RUN cmake --build build
 
 FROM ubuntu:20.04
 COPY --from=build build/Simulator .
-ENTRYPOINT ["Simulator"]
+ENTRYPOINT ["./Simulator"]

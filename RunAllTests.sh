@@ -21,6 +21,7 @@ do
 			echo "[Pass] The test results match the expected results."
 		else
 			echo "[Failure] The test results do not match the expected results."
+			cmp -- "$i.result" "tests/$testName.gold"
 			hasTestFailed=true
 		fi
 	fi

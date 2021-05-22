@@ -11,6 +11,11 @@ do
 	if [ $testResult -ne 0 ]; then
 		hasTestFailed=true
 	fi
+	
+	if [ ! -f "$1.in.result" ]; then
+		echo "No result file for $testName.in found. Was looking for \"$1.in.result\""
+		hasTestFailed=true
+	fi
 done
 
 if $hasTestFailed; then

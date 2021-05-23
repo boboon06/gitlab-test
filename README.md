@@ -1,2 +1,5 @@
-# CTEK-Test
-
+# Gitlab Test
+## Dependencies 
+This repo requires:
+* GitLab [Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/) to be enabled to distribute the Docker containers around runners, and to allow debugging of the build output.
+* GitLab runners setup to run [Docker-in-Docker](https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-docker-executor-with-the-docker-image-docker-in-docker)

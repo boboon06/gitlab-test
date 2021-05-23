@@ -13,7 +13,7 @@ public:
 	void AddTruthTable(std::string type, std::vector<int> outputs);
 	void AddGateType(std::string name, std::string truthTableName, int delay);
 	void AddGate(std::string name, std::string typeName, std::vector<std::string> inputNames);
-	void AddProbe(std::string gateName, std::ostream& os);
+	void AddProbe(std::string gateName);
 	Gate* GetGate(std::string gateName) { return &(m_gates[gateName]); }
 	std::vector<Gate*> ProbeAllGates();
 	boost::property_tree::ptree GetJson();

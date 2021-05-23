@@ -124,6 +124,7 @@ int Simulation::Step()
 		if (!transition->IsValid())
 			continue;
 		transition->Apply();
+		
 		if (transition->gate->IsProbed())
 			m_probes.emplace_back(Probe{ transition->time, transition->gate->GetName(), transition->newOutput });
 		transitions.emplace_back(*transition);

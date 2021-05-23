@@ -58,8 +58,8 @@ void Circuit::AddGate(std::string name, std::string typeName, std::vector<std::s
 
 void Circuit::AddProbe(std::string gateName)
 {
-	auto gate = m_gates[gateName];
-	gate.Probe();
+	auto* gate = GetGate(gateName);
+	gate->Probe();
 }
 
 std::vector<Gate*> Circuit::ProbeAllGates()

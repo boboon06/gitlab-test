@@ -148,7 +148,7 @@ void Simulation::Run()
 	for (const auto& t : m_inTransitions)
 		m_queue.append(t);
 	while (m_queue.len() > 0)
-		Step(os);
+		Step();
 	std::sort(m_probes.begin(), m_probes.end());
 }
 

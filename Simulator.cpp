@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     }
     bool json = (argc >= 3 && "json" == std::string(argv[2]));
     std::ifstream input(argv[1], std::ios::in);
-    auto simulation = Simulation::FromFile(input, std::cout);
+    auto simulation = Simulation::FromFile(input);
     
     if (json)
     {
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
         simulation->ProbeAllGates();
     }
         
-    simulation->Run(std::cout);
+    simulation->Run();
     if (json)
         simulation->UndoProbeAllGates();
     if (argc >= 3 && "json" == std::string(argv[2]))

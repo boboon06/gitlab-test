@@ -114,7 +114,7 @@ void Simulation::LayoutFromFile(std::ifstream& is)
 	m_layout = str;
 }
 
-int Simulation::Step(std::ostream& os)
+int Simulation::Step()
 {
 	int stepTime = m_queue.min()->time;
 	std::vector<Transition> transitions;
@@ -125,15 +125,10 @@ int Simulation::Step(std::ostream& os)
 			continue;
 		transition->Apply();
 		
-		os << "[DEBUG] [Simulation](Step) transition->gate->GetName(): " << transition->gate->GetName() << std::endl;
-		os << "[DEBUG] [Simulation](Step) transition->gate->IsProbed(): " << transition->gate->IsProbed() << std::endl;
-		
 		if (transition->gate->IsProbed())
 			m_probes.emplace_back(Probe{ transition->time, transition->gate->GetName(), transition->newOutput });
 		transitions.emplace_back(*transition);
 	}
-	
-	os << "[DEBUG] [Simulation](Step) m_probes size: " << m_probes.size() << std::endl;
 
 	for (const auto transition : transitions)
 	{
@@ -147,7 +142,7 @@ int Simulation::Step(std::ostream& os)
 	return stepTime;
 }
 
-void Simulation::Run(std::ostream& os)
+void Simulation::Run()
 {
 	std::sort(m_inTransitions.begin(), m_inTransitions.end());
 	for (const auto& t : m_inTransitions)
@@ -180,7 +175,6 @@ boost::property_tree::ptree Simulation::GetJson()
 
 void Simulation::PrintProbes(std::ostream& os, std::ostream& resultFile)
 {
-	os << "[DEBUG] [Simulation](PrintProbes) m_probes size: " << m_probes.size() << std::endl;
 	for (const auto& probe : m_probes)
 	{
 		if (!m_circuit->GetGate(probe.gateName)->IsProbed())

@@ -45,8 +45,8 @@ public:
 	void LayoutFromFile(std::ifstream& is);
 	void AddTransition(std::string gateName, int outputValue, int outputTime);
 	Circuit* GetCircut() { return m_circuit.get(); }
-	int Step(std::ostream& os);
-	void Run(std::ostream& os);
+	int Step();
+	void Run();
 	void ProbeAllGates() { m_undoLog = m_circuit->ProbeAllGates(); }
 	void UndoProbeAllGates();
 	boost::property_tree::ptree GetJson();

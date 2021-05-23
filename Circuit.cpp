@@ -58,7 +58,7 @@ void Circuit::AddGate(std::string name, std::string typeName, std::vector<std::s
 
 void Circuit::AddProbe(std::string gateName, std::ostream& os)
 {
-	auto* gate = &m_gates[gateName];
+	auto* gate = GetGate(gateName);
 	gate->Probe();
 	os << "[DEBUG] [Circuit](AddProbe) gateName: " << gateName << std::endl;
 	os << "[DEBUG] [Circuit](AddProbe) gate.GetName(): " << gate->GetName() << std::endl;
